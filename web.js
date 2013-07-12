@@ -2,17 +2,18 @@ var express = require('express');
 var fs = require('fs');
 var infile = "index.html";
 
-var getString = function(infile) {
-  fs.readFileSync(infile, 'utf8', function(err, data) {
-    if (err) throw err;
-    return data;
+var getString = function() {
+  fs.readFileSync('index.html', function(err, data) {
+    if (err) { console.log(err);}
+//    return data;
+    console.log(data);
   });
 };
 
 var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-  response.send(getString(infile));
+  response.send(fs.readFileSync(infile,'utf8'));
 });
 
 var port = process.env.PORT || 5000;
